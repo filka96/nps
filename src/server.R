@@ -1,5 +1,11 @@
 library(shiny)
 
-function(input, output) {
-    output$value <- renderPrint({ input$text })
+TYPES = c('pbinom')
+#TYPES=c('pbinom','qbinom','pnorm','qnorm','prop.test','binom.test')
+
+function(input, output, session) {
+    lapply(1 : length(TYPES), function(i) {
+        func <- dget(paste("server/", TYPES[i], ".R", sep = ""))
+        func(input, output, session)
+    })
 }
