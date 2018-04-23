@@ -1,17 +1,10 @@
-fluidPage(
-    titlePanel("Hello Shiny!"),
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput(
-                inputId = "bins",
-                label = "Number of bins:",
-                min = 1,
-                max = 50,
-                value = 30
-            )
-        ),
-        mainPanel(
-            plotOutput(outputId = "distPlot")
-        )
+library(shiny)
+
+TYPES=c('pbinom','qbinom','pnorm','qnorm','prop.test','binom.test')
+
+do.call(navbarPage, c(title='NPSW',lapply(1:length(TYPES), function(i) {
+    functionName = TYPES[i]
+    tabPanel(functionName,
+        h1(functionName)
     )
-)
+})))
