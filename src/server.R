@@ -1,7 +1,6 @@
 library(shiny)
 
-TYPES = c('pbinom')
-#TYPES=c('pbinom','qbinom','pnorm','qnorm','prop.test','binom.test')
+TYPES = c('pbinom', 'qbinom', 'pnorm', 'qnorm', 'prop.test', 'binom.test')
 
 function(input, output, session) {
     lapply(1 : length(TYPES), function(i) {

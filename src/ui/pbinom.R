@@ -1,15 +1,16 @@
 library(shiny)
-library(npsm)
 
 sidebarLayout(
     sidebarPanel(
-        numericInput("q", label = "q", value = 1),
-        numericInput("size", label = "size", value = 1),
-        numericInput("prob", label = "prob", value = 1),
-        checkboxInput("lowerTail", label = "lowerTail", value = TRUE),
-        checkboxInput("logP", label = "logP", value = FALSE)
+        numericInput("q", label = "число успехов", value = 1),
+        numericInput("size", label = "число испытаний", value = 10),
+        sliderInput("prob", label = "вероятность успеха", min = 0, max = 1, value = 0.5),
+        checkboxInput("lowerTail", label = "функция распределения F(x) = P(X <= x), иначе P(X > x) = 1 − F(x).", value = TRUE),
+        checkboxInput("logP", label = "логарифмическая вероятность log(p);", value = FALSE)
     ),
     mainPanel(
+        h3("Функция pbinom() возвращает кумулятивную биномиальную вероятность, т.е функцию распределения F(x)."),
+        h5("Синтаксис: pbinom(q, size, prob, lower.tail = TRUE, log.p = FALSE)."),
         verbatimTextOutput("pbinomResult")
     )
 )
