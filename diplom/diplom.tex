@@ -1,0 +1,125 @@
+\documentclass[14pt,a4paper]{scrartcl}
+\usepackage[left=25mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}
+
+\lstset{
+language=R,
+basicstyle=\tiny\ttfamily,
+numbers=left,
+numberstyle=\tiny\color{Blue},
+stepnumber=1,
+numbersep=5pt,
+backgroundcolor=\color{white},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+frame=single,
+rulecolor=\color{black},
+tabsize=2,
+captionpos=b,
+breaklines=true,
+breakatwhitespace=false,
+keywordstyle=\color{RoyalBlue},
+commentstyle=\color{YellowGreen},
+stringstyle=\color{ForestGreen}
+}
+
+\begin{document}
+    % Титульник
+    \begin{titlepage}
+        \begin{center}
+            \large
+            МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ\\ РОССИЙСКОЙ ФЕДЕРАЦИИ\\
+            \textbf{Федеральное агентство по образованию}
+            \vspace{0.5cm}
+            ТВЕРСКОЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ\\
+            \vspace{0.25cm}
+            Математический факультет\\
+            Кафедра математического анализа
+            \vfill
+            \textsc{ВЫПУСКНАЯ РАБОТА БАКАЛАВРА}\\[5mm]
+            {\LARGE Разработка модуля непараметрического анализа данных в пакете R\\[2mm]}
+            \bigskip
+        \end{center}
+        \vfill
+        \hfill
+        \begin{minipage}{0.4\textwidth}
+            Автор:\\
+            Семенков Филипп Андреевич\\ \\
+            Научный руководитель:\\
+            Сидорова Оксана Игоревна\\
+        \end{minipage}
+        \vfill
+        \begin{center}
+            Тверь, 2018 г.
+        \end{center}
+    \end{titlepage}
+
+    % Оглавление
+    \newpage
+    \tableofcontents
+
+    % Содержание
+    \newpage
+    %\part[<short title>]{<title>}
+    %\chapter[<short title>]{<title>}
+    %\section[<short title>]{<title>}
+    %\subsection[<short title>]{<title>}
+    %\subsubsection[<short title>]{<title>}
+    %\paragraph[<short title>]{<title>}
+    %\subparagraph[<short title>]{<title>}
+
+    \section{Введение}
+    \subsection{Актуальность}
+    \subsection{Задача}
+    \subsection{Подзадачи}
+
+    \section{Практика}
+    \subsection{Пример решения задачи}
+    \subsection{Выделение необходимых функций}
+    \subsection{Наполнение приложухи необходимыми функциями}
+    \subsection{Деплой приложухи}
+
+    \section{Я - большой раздел}
+    \subsection{Я - подраздел поменьше}
+    \subsubsection{А я - самый маленький раздельчик}
+    \paragraph{Ну совсем крошечный кусочек}
+
+    % Перечисление
+    \section{Перечисление}
+    \begin{enumerate}
+        \item item 1
+        \item item 2
+        \item item 3
+    \end{enumerate}
+
+    % Исходный код R
+    \section{Исходный код R}
+    \begin{lstlisting}[language=R]
+        library(foreign)
+
+        foo <- rnorm(100)
+        # writing a function
+        bar <- apply(foo, 1, function(x){
+            y <- sqrt(x)
+            cat(paste('The result is ', x )))
+        })
+        bar
+
+        str(bar)
+
+        foo + bar
+    \end{lstlisting}
+
+    % Список литературы
+    \newpage
+    \begin{thebibliography}{9}
+        \bibitem{Knuth-2003}Кнут Д.Э. Всё про. \newblock --- Москва: Изд. Вильямс, 2003. 550~с.
+    \end{thebibliography}
+
+\end{document}
