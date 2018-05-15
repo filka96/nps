@@ -1,0 +1,4 @@
+#!/usr/bin/Rscript
+
+library(shiny)
+runApp(appDir = "src", port = 3838)
