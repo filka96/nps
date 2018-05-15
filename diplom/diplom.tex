@@ -7,36 +7,9 @@
 \usepackage{listings}
 \usepackage[usenames,dvipsnames]{color}
 
+\lstdefinelanguage{Dockerfile}{morekeywords={FROM, RUN, CMD, LABEL, MAINTAINER, EXPOSE, ENV, ADD, COPY, ENTRYPOINT, VOLUME, USER, WORKDIR, ARG, ONBUILD, STOPSIGNAL, HEALTHCHECK, SHELL}, morecomment=[l]{\#}, morestring=[b]"}
 
-\lstdefinelanguage{Dockerfile}{
-morekeywords={FROM, RUN, CMD, LABEL, MAINTAINER, EXPOSE, ENV, ADD, COPY,
-ENTRYPOINT, VOLUME, USER, WORKDIR, ARG, ONBUILD, STOPSIGNAL, HEALTHCHECK,
-SHELL},
-morecomment=[l]{\#},
-morestring=[b]"
-}
-
-\lstset{
-language=R,
-basicstyle=\tiny\ttfamily,
-numbers=left,
-numberstyle=\tiny\color{Blue},
-stepnumber=1,
-numbersep=5pt,
-backgroundcolor=\color{white},
-showspaces=false,
-showstringspaces=false,
-showtabs=false,
-frame=single,
-rulecolor=\color{black},
-tabsize=4,
-captionpos=b,
-breaklines=true,
-breakatwhitespace=false,
-keywordstyle=\color{RoyalBlue},
-commentstyle=\color{YellowGreen},
-stringstyle=\color{ForestGreen}
-}
+\lstset{language=R, basicstyle=\tiny\ttfamily, numbers=left, numberstyle=\tiny\color{Blue}, stepnumber=1, numbersep=5pt, backgroundcolor=\color{white}, showspaces=false, showstringspaces=false, showtabs=false, frame=single, rulecolor=\color{black}, tabsize=4, captionpos=b, breaklines=true, breakatwhitespace=false, keywordstyle=\color{RoyalBlue}, commentstyle=\color{YellowGreen}, stringstyle=\color{ForestGreen}}
 
 \begin{document}
     % Титульник
@@ -79,7 +52,21 @@ stringstyle=\color{ForestGreen}
     % Теория
     \newpage
     \section[Теоретическая часть]{Теоретическая часть}
+    \subsection[Введение]{Введение}
+    В учебном плане факультета прикладной математики и кибернетики на кафедре математической статистики и системного
+    анализа мы изучаем довольно большое количество различных дисциплин.
+
+    В курсе непараметрической статистики мы изучаем
+    нормальные и экспоненциальные распределения, гамма - распределения, логарифмически нормальные и другие.
+    Используются такие методы, которые позволяют изучить данные из выборки небольшого объема с переменными,
+    о распределении которых мало или ничего не известно. Непараметрические методы не основаны на оценке
+    параметры (например, среднее или стандартное отклонение) при описании распределения выборок
+    значения. Поэтому эти методы иногда также называются параметрами, свободными или свободно распространяемыми.
+
     \subsection[Постановка задачи]{Постановка задачи}
+    Для решения задач непараметрической статистики используются различные статистичиские пакеты например пакет R.
+    В пакете R существует большое количество библиотек в которых содержатся необходимые для решения подобных задач функции.
+
     \subsection[Актуальность]{Практическая ценность}
     \subsection[Требования к программе]{Требования к программе}
     \subsection[Новизна]{Задел на будущее}
@@ -101,6 +88,7 @@ stringstyle=\color{ForestGreen}
     \section[Примеры решения задач]{Примеры решения задач}
     \subsection[Какя-то задача]{Какя-то задача}
 
+    % Заключение
     \newpage
     \section[Заключение]{Заключение}
 
@@ -111,3 +99,31 @@ stringstyle=\color{ForestGreen}
         \bibitem{Knuth-2003}Кнут Д.Э. Всё про. \newblock --- Москва: Изд. Вильямс, 2003. 550~с.
     \end{thebibliography}
 \end{document}
+
+% Перечисление
+%\section{Перечисление}
+%\begin{enumerate}
+%\item item 1
+%\item item 2
+%\item item 3
+%\end{enumerate}
+
+% Исходный код R
+%\newpage
+%\section{Исходный код R}
+%\begin{lstlisting}[language=R]
+%library(foreign)
+%foo <- rnorm(100)
+%# writing a function
+%bar <- apply(
+%foo, 1, function(x){
+%y <- sqrt(x)
+%cat(
+%paste('The result is ', x )
+%)
+%}
+%)
+%bar
+%str(bar)
+%foo + bar
+%\end{lstlisting}
