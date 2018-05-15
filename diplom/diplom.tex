@@ -1,5 +1,5 @@
 \documentclass[14pt,a4paper]{scrartcl}
-\usepackage[left=25mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0cm]{geometry}
+\usepackage[left=25mm, right=15mm, top=20mm, bottom=30mm, bindingoffset=0cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage[T1]{fontenc}
@@ -7,11 +7,20 @@
 \usepackage{listings}
 \usepackage[usenames,dvipsnames]{color}
 
+
+\lstdefinelanguage{Dockerfile}{
+morekeywords={FROM, RUN, CMD, LABEL, MAINTAINER, EXPOSE, ENV, ADD, COPY,
+ENTRYPOINT, VOLUME, USER, WORKDIR, ARG, ONBUILD, STOPSIGNAL, HEALTHCHECK,
+SHELL},
+morecomment=[l]{\#},
+morestring=[b]"
+}
+
 \lstset{
 language=R,
-basicstyle=\ttfamily,
+basicstyle=\tiny\ttfamily,
 numbers=left,
-numberstyle=\color{Blue},
+numberstyle=\tiny\color{Blue},
 stepnumber=1,
 numbersep=5pt,
 backgroundcolor=\color{white},
@@ -36,12 +45,12 @@ stringstyle=\color{ForestGreen}
             \large
             МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ\\
             РОССИЙСКОЙ ФЕДЕРАЦИИ\\
-            \textbf{Федеральное агентство по образованию}
+            \textbf{Федеральное агентство по образованию\\}
             \vspace{0.5cm}
             ТВЕРСКОЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ\\
             \vspace{0.25cm}
-            Математический факультет\\
-            Кафедра математического анализа
+            Факультет прикладной математики и информатики\\
+            Кафедра математической статистики и системного анализа\\
             \vfill
             \textsc{ВЫПУСКНАЯ РАБОТА БАКАЛАВРА}\\[5mm]
             {\LARGE Разработка модуля непараметрического анализа данных в пакете R\\[2mm]}
@@ -85,6 +94,12 @@ stringstyle=\color{ForestGreen}
     \subsection[Пользовательский интерфейс]{Пользовательский интерфейс}
     \subsection[Программный интерфейс приложения]{Программный интерфейс приложения (API)}
     \subsection[Развёртывание приложения]{Развёртывание приложения}
+    \subsection[Конечная структура приложения]{Конечная структура приложения}
+
+    % Примеры
+    \newpage
+    \section[Примеры решения задач]{Примеры решения задач}
+    \subsection[Какя-то задача]{Какя-то задача}
 
     \newpage
     \section[Заключение]{Заключение}
