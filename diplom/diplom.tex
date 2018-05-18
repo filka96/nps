@@ -8,11 +8,47 @@
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{enumitem}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{scrextend}
+
+\usetikzlibrary{trees,calc}
+\usetikzlibrary{positioning}
 \graphicspath{ {images/} }
 
 \lstdefinelanguage{Dockerfile}{morekeywords={FROM, RUN, CMD, LABEL, MAINTAINER, EXPOSE, ENV, ADD, COPY, ENTRYPOINT, VOLUME, USER, WORKDIR, ARG, ONBUILD, STOPSIGNAL, HEALTHCHECK, SHELL}, morecomment=[l]{\#}, morestring=[b]"}
 
 \lstset{language=R, basicstyle=\ttfamily, numbers=left, numberstyle=\color{Blue}, stepnumber=1, numbersep=5pt, backgroundcolor=\color{white}, showspaces=false, showstringspaces=false, showtabs=false, frame=single, rulecolor=\color{black}, tabsize=4, captionpos=b, breaklines=true, breakatwhitespace=false, keywordstyle=\color{RoyalBlue}, commentstyle=\color{YellowGreen}, stringstyle=\color{ForestGreen}}
+
+\makeatletter
+\newcount\dirtree@lvl
+\newcount\dirtree@plvl
+\newcount\dirtree@clvl
+\def\dirtree@growth{%
+  \ifnum\tikznumberofcurrentchild=1\relax
+  \global\advance\dirtree@plvl by 1
+  \expandafter\xdef\csname dirtree@p@\the\dirtree@plvl\endcsname{\the\dirtree@lvl}
+  \fi
+  \global\advance\dirtree@lvl by 1\relax
+  \dirtree@clvl=\dirtree@lvl
+  \advance\dirtree@clvl by -\csname dirtree@p@\the\dirtree@plvl\endcsname
+  \pgf@xa=7mm\relax
+  \pgf@ya=-14mm\relax
+  \pgf@ya=\dirtree@clvl\pgf@ya
+  \pgftransformshift{\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}%
+  \ifnum\tikznumberofcurrentchild=\tikznumberofchildren
+  \global\advance\dirtree@plvl by -1
+  \fi
+}
+
+\tikzset{
+  dirtree/.style={
+    growth function=\dirtree@growth,
+    every node/.style={anchor=north},
+    every child node/.style={anchor=west},
+    edge from parent path={(\tikzparentnode\tikzparentanchor) |- (\tikzchildnode\tikzchildanchor)}
+  }
+}
+\makeatother
 
 \begin{document}
     % Титульник
@@ -172,12 +208,56 @@
     \subsection[Пользовательский интерфейс]{Пользовательский интерфейс}
     \subsection[Программный интерфейс приложения]{Программный интерфейс приложения (API)}
     \subsection[Развёртывание приложения]{Развёртывание приложения}
-    \subsection[Конечная структура приложения]{Конечная структура приложения}
+    \subsection[Алгоритм разворачивания сервера]{Алгоритм разворачивания сервера}
+    \subsection[Алгоритм запуска приложения]{Алгоритм запуска приложения}
+
+    \newpage
+    \subsection[Cтруктура приложения]{Cтруктура приложения}
+    В конечном итоге получаем следующую струтуру приложения:\\
+	\begin{tikzpicture}[dirtree]
+        \node {npsw/}
+            child { node {src/}
+                child { node {modules}
+                    child { node {module1/}
+                        child { node {server1.R} }
+                        child { node {ui1.R} }
+                    }
+                    child { node {module2/}
+                        child { node {server2.R} }
+                        child { node {ui2.R} }
+                    }
+                    child { node {.....} }
+                }
+                child { node {util}
+                    child { node {utilFunction1.R} }
+                    child { node {utilFunction2.R} }
+                    child { node {.....} }
+                }
+                child { node {app.R} }
+            }
+            child { node {npsw} }
+            child { node {Dockerfile} };
+	\end{tikzpicture}
+    \newline
+    Где:
+    \begin{itemize}
+        \item[npsw/] - директория приложения
+        \item[npsw] - скрипт, запускающий приложение
+        \item[Dockerfile] - скрипт, разворачивающий сервер
+        \item[src/] - директория исходного кода приложения
+        \item[app.R] - код, описывающий API
+        \item[modules/] - директория, содержащая модули, соответствующие написанному API
+        \item[module1/] - директория одного из модулей
+        \item[server1.R] - файл, описывающий алгоритм модуля 'module1'
+        \item[ui1.R] - функция, описывающая пользовательский интерфейс модуля 'module1'
+        \item[util/] - директория, содержащая утилитарные функции
+        \item[utilFunction1.R] - файл, описывающий утилитарную функцию
+    \end{itemize}
 
     % Примеры
     \newpage
     \section[Примеры решения задач]{Примеры решения задач}
-    \subsection[Какя-то задача]{Какя-то задача}
+%    \subsection[Какя-то задача]{Какя-то задача}
 
     % Заключение
     \newpage
@@ -225,3 +305,29 @@
 %\end{lstlisting}
 
 %https://ru.sharelatex.com/learn/Inserting_Images
+
+%\begin{tikzpicture}[>=stealth,every node/.style={shape=rectangle,draw,rounded corners},]
+%    % create the nodes
+%    \node (c1) {Chapter 1};
+%    \node (c4) [below right=of c1]{Chapter 4};
+%    \node (c5) [below left=of c4]{Chapter 5};
+%    \node (c6) [right =of c5]{Chapter 6};
+%    \node (c7) [right =of c6]{Chapter 7};
+%    \node (c8) [right =of c7]{Chapter 8};
+%    \node (c9) [right =of c8]{Chapter 9};
+%    \node (c2) [below =of c5]{Chapter 2};
+%    \node (c3) [below right =of c2]{Chapter 3};
+    % connect the nodes
+%    \draw[->] (c1) to[out=0,in=135] (c4);
+%    \draw[->] (c1.west) to[out=180,in=180] (c2.west);
+%    \draw[->] (c4) to[out=180,in=75] (c5);
+%    \draw[->] (c4) -- (c6);
+%    \draw[->] (c4.south east) -- (c7);
+%    \draw[->] (c4.east) to[out=0,in=110] (c8);
+%    \draw[->] (c4.east) to[out=0,in=110] (c9);
+%    \draw[->,dashed] (c2) -- (c5);
+%    \draw[->,dashed] (c2) -- (c6);
+%    \draw[->,dashed] (c2) -- (c7.south);
+%    \draw[->,dashed] (c2) -- (c8.south);
+%    \draw[->] (c2) -- (c3);
+%\end{tikzpicture}
