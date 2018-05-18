@@ -1,4 +1,4 @@
 /.idea/
-/diplom/_minted-*
-/diplom/*.swp
-/diplom/*.pdf
+/diplom/
+!/diplom/images/
+!/diplom/diplom.tex
