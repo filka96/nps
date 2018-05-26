@@ -7,7 +7,7 @@ stringToArray <- function(string, splitter = ','){
 }
 
 function(input, output, session) {
-    output$corResult <- renderPrint({
-        cor(stringToArray(input$corX),stringToArray(input$corY),"everything",input$corMethod)
+    output$binomTestResult <- renderPrint({
+        binom.test(stringToArray(input$binomTestX), input$binomTestN, input$binomTestP, input$binomTestAlternative, input$binomTestConfLevel)
     })
 }

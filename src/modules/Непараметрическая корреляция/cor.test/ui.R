@@ -7,8 +7,9 @@ sidebarLayout(
         selectInput("corTestMethod", "метод", choices=c("kendall","spearman"))
     ),
     mainPanel(
+        h2("Функция cor.test()"),
         h3("Вычисляет выборочный коэффициент корреляции"),
-        h5("Синтаксис: cor(x, y, method = c(\"kendall\",\"spearman\"))."),
+        h5("Синтаксис: cor.test(x, y, method = c(\"kendall\",\"spearman\"))."),
         verbatimTextOutput("corTestResult")
     )
 )

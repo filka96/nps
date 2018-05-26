@@ -7,7 +7,8 @@ sidebarLayout(
         selectInput("corMethod", "метод", choices=c("kendall","spearman"))
     ),
     mainPanel(
-        h3("Хи-квадрат - вычисляет выборочный коэффициент корреляции"),
+        h2("Функция cor()"),
+        h3("Вычисляет выборочный коэффициент корреляции"),
         h5("Синтаксис: cor(x, y, method = c(\"kendall\",\"spearman\"))."),
         verbatimTextOutput("corResult")
     )
