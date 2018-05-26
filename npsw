@@ -1,4 +1,11 @@
 #!/usr/bin/Rscript
 
+if(!require(shiny)){install.packages("shiny")}
+if(!require(npsm)){install.packages("npsm")}
+if(!require(Rfit)){install.packages("Rfit")}
+
 library(shiny)
+library(npsm)
+library(Rfit)
+
 runApp(appDir = "src", port = 3838)
