@@ -8,4 +8,4 @@ library(shiny)
 library(npsm)
 library(Rfit)
 
-runApp(appDir = "src", port = 3838)
+runApp(appDir = "src", port = 12345)
