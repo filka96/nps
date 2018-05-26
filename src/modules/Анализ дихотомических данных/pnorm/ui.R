@@ -5,7 +5,6 @@ sidebarLayout(
         textInput('pnormQ', 'вектор квантилей', "2"),
         textInput('pnormMean', 'вектор средних', "5"),
         textInput('pnormSd', 'вектор стандартных отклонений', "3"),
-
         checkboxInput("pnormLowerTail", label = "функция распределения F(x) = P(X <= x), иначе P(X > x) = 1 − F(x).", value = TRUE),
         checkboxInput("pnormLogP", label = "логарифмическая вероятность log(p);", value = FALSE)
     ),
