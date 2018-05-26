@@ -1,4 +1,3 @@
 /.idea/
-/diplom/
-!/diplom/images/
-!/diplom/diplom.tex
+/diplom/*.swp
+/diplom/*.pdf
