@@ -5,7 +5,8 @@ UI_FILENAME = "ui.R"
 SERVER_FILENAME = "server.R"
 MODULES_PATH = "modules"
 
-MODULES = list.dirs(path = MODULES_PATH, full.names = FALSE, recursive = FALSE)
+#MODULES = list.dirs(path = MODULES_PATH, full.names = FALSE, recursive = FALSE)
+MODULES = c("Анализ дихотомических данных","Тесты на сдвиги","Тесты на равенство дисперсий","Непараметрическая корреляция","Тесты на независимость","Распределения")
 
 shinyApp(
     do.call(

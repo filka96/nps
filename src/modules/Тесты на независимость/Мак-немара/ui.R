@@ -9,7 +9,7 @@ sidebarLayout(
     ),
     mainPanel(
         h2("Функция mcnemar.test()"),
-        h3("Критерий Мак-Немара . (узнать красивое название)"),
+        h3("Возвращает хи квадрат распределение по методу МакНемара"),
         h5("Синтаксис: mcnemar.test(x, y = NULL, correct = TRUE)."),
         verbatimTextOutput("mcnemarTestResult")
     )

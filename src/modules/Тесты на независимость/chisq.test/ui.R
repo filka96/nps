@@ -12,7 +12,7 @@ sidebarLayout(
     ),
     mainPanel(
         h2("Функция chisq.test()"),
-        h3("Возвращает "),
+        h3("Возвращает хи квадрат распределение"),
         h5("Синтаксис: chisq.test(x, y = NULL, correct = TRUE, p = rep(1/length(x), length(x)), rescale.p = FALSE, simulate.p.value = FALSE, B = 2000)."),
         verbatimTextOutput("chisqTestResult")
     )
