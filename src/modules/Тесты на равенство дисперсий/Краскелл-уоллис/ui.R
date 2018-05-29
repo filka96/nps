@@ -7,7 +7,7 @@ sidebarLayout(
     ),
     mainPanel(
         h2("Функция kruskal.test()"),
-        h3("Возвращает "),
+        h3("Выполняет критерий суммирования ранга Крускал-Уоллиса нулевого значения"),
         h5("Синтаксис: kruskal.test(x, ...)."),
         verbatimTextOutput("kruskalTestResult")
     )

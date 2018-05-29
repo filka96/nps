@@ -9,7 +9,7 @@ sidebarLayout(
     ),
     mainPanel(
         h2("Функция mcnemar.test()"),
-        h3("Возвращает хи квадрат распределение по методу МакНемара"),
+        h3("Выполняет хи-квадрат теста МакНемара для симметрии строк и столбцов в двумерной таблице непредвиденных ситуаций."),
         h5("Синтаксис: mcnemar.test(x, y = NULL, correct = TRUE)."),
         verbatimTextOutput("mcnemarTestResult")
     )

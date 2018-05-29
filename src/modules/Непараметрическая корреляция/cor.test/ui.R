@@ -8,7 +8,7 @@ sidebarLayout(
     ),
     mainPanel(
         h2("Функция cor.test()"),
-        h3("Вычисляет выборочный коэффициент корреляции"),
+        h3("Позволяет проверять гипотезу на связь между парными образцами."),
         h5("Синтаксис: cor.test(x, y, method = c(\"kendall\",\"spearman\"))."),
         verbatimTextOutput("corTestResult")
     )
