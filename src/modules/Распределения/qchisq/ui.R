@@ -11,7 +11,7 @@ sidebarLayout(
     ),
     mainPanel(
         h2("Функция qchisq()"),
-        h3("Возвращает хи квадрат. (узнать красивое название)"),
+        h3("Возвращает хи квадрат."),
         h5("Синтаксис: qchisq(p, df, ncp = 0, lower.tail = TRUE, log.p = FALSE)."),
         verbatimTextOutput("qchisqResult")
     )

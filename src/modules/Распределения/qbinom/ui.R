@@ -9,7 +9,8 @@ sidebarLayout(
         checkboxInput("qbinomLogP", label = "логарифмическая вероятность log(p);", value = FALSE)
     ),
     mainPanel(
-        h3("Функция qbinom() возвращает квантили биномиального распределения, т.е. минимальное x, для которого F(x) > p."),
+        h2("Функция qbinom()"),
+        h3("Возвращает квантили биномиального распределения, т.е. минимальное x, для которого F(x) > p."),
         h5("Синтаксис: qbinom(p, size, prob, lower.tail = TRUE, log.p = FALSE)."),
         verbatimTextOutput("qbinomResult")
     )
