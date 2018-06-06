@@ -2,7 +2,7 @@ library(shiny)
 
 sidebarLayout(
     sidebarPanel(
-        numericInput("pbinomQ", label = "число успехов", value = 1),
+        textInput('pbinomQ', 'вектор вероятностей', "0.2, 0.4, 0.6, 0.8"),
         numericInput("pbinomSize", label = "число испытаний", value = 10),
         sliderInput("pbinomProb", label = "вероятность успеха", min = 0, max = 1, value = 0.5),
         checkboxInput("pbinomLowerTail", label = "функция распределения F(x) = P(X <= x), иначе P(X > x) = 1 − F(x).", value = TRUE),

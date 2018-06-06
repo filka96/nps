@@ -461,11 +461,135 @@ lapply(
     % Примеры
     \newpage
     \section[Примеры решения задач]{Примеры решения задач}
-%    \subsection[Какя-то задача]{Какя-то задача}
+    \subsection[Анализ дихотомических данных]{Анализ дихотомических данных}
+    Исследовалась проблема условного досрочного освобождения уголовников. Для этого изучалось поведение всех уголовников --- мужчин, впервые условно освобожденных под специальный надзор из тюрем Нью --- Йорка в 1958 --- 1959 гг.
+
+	Все освобожденные находились под наблюдением 3 года после освобождения, если какое --- либо правонарушение не прекращало действие освобождения раньше.
+
+	В этом исследовании, где фигурировало очень много осужденных, Стэнтон рассматривал преступников, признанных виновными в иных преступлениях, чем убийство. Он обнаружил, что около 60\% всех освобожденных не совершают каких --- либо правонарушений в течение трех лет после освобождения.
+
+	Стэнтон обнаружил также, что в течение тех же трех лет 56 из 65 освобожденных досрочно на поруки убийц также не совершали каких --- либо правонарушений, приостанавливающих условное освобождение.
+
+	Будем считать, что отсутствие правонарушений у мужчин --- убийц, находящихся в течение трех лет под надзором --- это «успех» в испытаниях Бернулли.
+
+	Задание: Обозначим B --- число успехов = отсутствие правонарушений у мужчин --- убийц в n независимых испытаниях по схеме Бернулли. Пусть в 10 испытаниях «успех» появился 7 раз (искусственный пример). Используя биномиальный критерий, осуществите проверку гипотезы H0 : p = 0.6, против альтернатив H1 : p > 0.6, H1 : p < 0.6 и H1 : p $\ne$ 0.6
+
+	Такую задачу можно решить с помощью языка R.
+
+	Пусть задано $\alpha$ = 0.05, n = 10, p = 0.6. Соответствующие квантили биномиального закона находим по правилу:
+    \begin{itemize}
+        \item \textbf{нижняя}: qbinom(0.05, 10, 0.6, lower.tail = TRUE, log.p = FALSE)
+        \item \textbf{верхняя}: qbinom(0.95, 10, 0.6, lower.tail = TRUE, log.p = FALSE)
+    \end{itemize}
+
+	Реально достигнутые уровни (у дискретного распределения могут отличаться от заявленного $\alpha$):
+    \begin{itemize}
+        \item \textbf{квантили}: q <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        \item \textbf{нижняя}: 1-pbinom(q, 10, 0.6, lower.tail = TRUE, log.p = FALSE)
+        \item \textbf{верхняя}: pbinom(q, 10, 0.6, lower.tail = TRUE, log.p = FALSE)
+    \end{itemize}
+
+	С помошью пеализованного API добавим функцию qbinom
+    \subsubsection[qbinom]{qbinom}
+    server.R
+    \begin{lstlisting}[language=R]
+function(input, output, session) {
+    output$qbinomResult <- renderPrint({
+        qbinom(
+            stringToArray(input$qbinomP),
+            input$qbinomSize,
+            input$qbinomProb,
+            lower.tail = input$qbinomLowerTail,
+            log.p = input$qbinomLogP
+            )
+    })
+}
+    \end{lstlisting}
+
+    ui.R
+    \begin{lstlisting}[language=R]
+sidebarLayout(
+    sidebarPanel(
+        textInput(
+            "qbinomP",
+            "vector of quantiles"
+        ),
+        numericInput(
+            "qbinomSize",
+            label="number of observations"
+        ),
+        sliderInput(
+            "qbinomProb",
+            label="probability of success on each trial",
+            min = 0,
+            max = 1
+        ),
+        checkboxInput(
+            "qbinomLowerTail",
+            label="probabilities are F(x) = P(X <= x), otherwise P(X > x) = 1 --- F(x)."
+        ),
+        checkboxInput(
+            "qbinomLogP",
+            label="probabilities p are given as log(p)"
+        )
+    ),
+    mainPanel(
+        h2("qbinom()"),
+        h3("Density, distribution function, quantile function and random generation for the binomial distribution with parameters size and prob"),
+        h5("Syntax: qbinom(p, size, prob, lower.tail = TRUE, log.p = FALSE)."),
+        verbatimTextOutput("qbinomResult")
+    )
+)
+    \end{lstlisting}
+
+    \newpage
+    После чего запустим приложение и введём данные. Получим следующий результат:\\
+
+    qbinom(0.05, 10, 0.6, lower.tail = TRUE, log.p = FALSE)\\
+    
+    \includegraphics[width=\textwidth]{qbinom.png}
+
+    qbinom(0.95, 10, 0.6, lower.tail = TRUE, log.p = FALSE)\\
+
+    \includegraphics[width=\textwidth]{qbinom-2.png}
+
+    \newpage
+    По аналогии реализуем функцию pbinom. Получим следующий результат:\\
+
+    pbinom(q, 10, 0.6, lower.tail = TRUE, log.p = FALSE)\\
+
+    \includegraphics[width=\textwidth]{pbinom-1.png}
 
     % Заключение
     \newpage
     \section[Заключение]{Заключение}
+
+    В ходе решения задачи:
+    \begin{itemize}
+        \item изучны различные пакеты, позволяющие произвести непараметрический анализ данных.
+        \item изучны паттерны проектирования приложения.
+        \item изучен фреймворк shiny, позволяющий создавать web приложения в пакете R.
+        \item изучен инструмент для разворачивания приложния --- docker.
+        \item разработан пользовательский интерфейс приложения
+        \item разработан API для внедрения / редактирования функций непараметрического анализа
+        \item разработан dockerfile для разворачивания приложения
+        \item произведено тестирование приложения
+    \end{itemize}
+
+    Были внедрены следующие модули и функции непараметрического анализа данных:
+
+    \begin{center}
+        \begin{tabular}{ccc}
+            \textbf{Анализ дихотомических данных} & binom.test, prop.test\\
+            \textbf{Тесты на сдвиги} & wilcox.test, mood.test\\
+            \textbf{Тесты на равенство дисперсий} & kruskal.test\\
+            \textbf{Непараметрическая корреляция} & cor, cor.test\\
+            \textbf{Тесты на независимость} & mcnemar.test\\
+            \textbf{Распределения} & pbinom, pnorm, qbinom, qchisq, qnorm\\
+        \end{tabular}
+    \end{center}
+
+    В конечном итоге был разработан модуль непараметрического анализа данных в пакете R.
 
     % Список литературы
     \newpage
@@ -493,46 +617,5 @@ lapply(
         \newblock --- https://ru.wikipedia.org/wiki/Bootstrap
 
     \end{thebibliography}
-
-    % Приложения
-    \newpage
-    \appendix
-    \section{Исходный код}
-    \begin{lstlisting}[language=R]
-library(shiny)
-
-PROGRAM_TITLE = 'NPSW'
-UI_FILENAME = "ui.R"
-SERVER_FILENAME = "server.R"
-MODULES_PATH = "modules"
-
-MODULES = list.dirs(path = MODULES_PATH, full.names = FALSE, recursive = FALSE)
-
-shinyApp(
-    do.call(
-        navbarPage, c(
-            title = PROGRAM_TITLE,
-            lapply(1 : length(MODULES), function(i) {
-                FUNCTIONS = list.dirs(path = paste(MODULES_PATH, MODULES[i], sep="/"), full.names = FALSE, recursive = FALSE)
-                tabPanel(
-                    MODULES[i],
-                    lapply(1 : length(FUNCTIONS), function(j) {
-                        dget(paste(MODULES_PATH, MODULES[i],FUNCTIONS[j], UI_FILENAME, sep = "/"))
-                    })
-                )
-            })
-        )
-    ),
-    function(input, output, session) {
-        lapply(1 : length(MODULES), function(i) {
-            FUNCTIONS = list.dirs(path = paste(MODULES_PATH, MODULES[i], sep="/"), full.names = FALSE, recursive = FALSE)
-            lapply(1 : length(FUNCTIONS), function(j) {
-                func <- dget(paste(MODULES_PATH, MODULES[i],FUNCTIONS[j], SERVER_FILENAME, sep = "/"))
-                func(input, output, session)
-            })
-        })
-    }
-)
-    \end{lstlisting}
 
 \end{document}
