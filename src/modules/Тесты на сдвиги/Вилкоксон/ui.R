@@ -5,7 +5,7 @@ sidebarLayout(
         textInput("wilcoxTestX", label = "вектор X.", "80,100"),
         textInput("wilcoxTestY", label = "вектор Y.", "10,110"),
         selectInput("wilcoxTestAlternative", "гипотеза", choices=c("two.sided", "less", "greater")),
-        #numericInput("wilcoxTestMu", label = "mu", min=0,value = 0),
+        numericInput("wilcoxTestMu", label = "mu", min=0,value = 0),
         checkboxInput("wilcoxTestPaired", label = "двухкаскадные", value = FALSE),
         checkboxInput("wilcoxTestCorrect", label = "коррекция непрерывности", value = TRUE),
         checkboxInput("wilcoxTestConfInt", label = "доверительный интервал", value = FALSE),

@@ -490,7 +490,7 @@ lapply(
     \end{itemize}
 
 	С помошью пеализованного API добавим функцию qbinom
-    \subsubsection[qbinom]{qbinom}
+
     server.R
     \begin{lstlisting}[language=R]
 function(input, output, session) {
@@ -560,6 +560,57 @@ sidebarLayout(
 
     \includegraphics[width=\textwidth]{pbinom-1.png}
 
+    \subsection{Тесты на сдвиги}
+
+     Необходимо выяснить, отличается ли потребление энергии в группе обследованных женщин от рекомендованного значения 7725 кДж/сутки. Для выполнения теста Уилкоксона в системе R используется функция wilcox.test():
+    Данные о суточном потреблении энергии (кДж/сутки) у 11 женщин. \cite{Altman} \\
+    5260, 5470, 5640, 6180, 6390, 6515, 6805, 7515, 7515, 8230, 8770
+
+	С помошью реализованного API добавим функцию wilcox.test
+
+    server.R
+    \begin{lstlisting}[language=R]
+function(input, output, session) {
+    output$wilcoxTestResult <- renderPrint({
+        wilcox.test(
+            x = stringToArray(input$wilcoxTestX),
+            y = stringToArray(input$wilcoxTestY),
+            alternative = input$wilcoxTestAlternative,
+            mu = input$wilcoxTestMu,
+            paired = input$wilcoxTestPaired,
+            correct = input$wilcoxTestCorrect,
+            conf.int = input$wilcoxTestConfInt,
+            conf.level = input$wilcoxTestConfLevel
+        )
+    })
+}
+    \end{lstlisting}
+
+    После чего запустим приложение и введём данные. Получим следующий результат:\\
+    \includegraphics[width=\textwidth]{wilcox.png}
+    Видим, что рассчитанное значение критерия V = 8. Вероятность получить такое (или превышающее его) значение при условии, что нулевая гипотеза верна, не превышает 0.05 (p-value = 0.0293). Это позволяет нам отклонить нулевую гипотезу о том, что суточное потребление энергии у обследованных 11 женщин не отличается от принятой нормы. Обратите внимание на выданное программой предупреждение о том, что полученное значени вероятности Р не является точным из-за наличия в данных повторяющихся значений (Warning message... cannot compute exact p-value with ties).
+
+    \subsection{Тесты на равенство дисперсий}
+    Проводится оценка прочности парашютов в зависимости от поставщика синтетических волокон.\\
+    Данные измерений первого поставщика: 18.5, 24, 17.2, 19.4\\
+    Данные измерений второго поставщика: 26.3, 25.3, 24, 24.2\\
+    Проверим однородность обработок с помощью критерия Краскела–Уоллиса. Нулевая гипотеза, которую мы проверим при помощи теста Краскела-Уоллиса, заключается в том, что качество исследованных парашютов не зависит от произодителя.\\
+    С помошью реализованного API добавим функцию kruskal.test, после чего запустим приложение и введём данные. Получим следующий результат:\\
+
+    \includegraphics[width=\textwidth]{kruskal.png}
+
+    Как видно из полученного результата, вероятность получить столь высокое наблюдаемое значение Н-критерия при верной нулевой гипотезе крайней мала и, следовательно, мы можем смело эту гипотезу отклонить.
+
+%    \subsection{Непараметрическая корреляция}
+%    \includegraphics[width=\textwidth]{cor.png}
+%    \subsection{Тесты на независимость}
+%    \subsection{Распределения}
+
+
+%X: "18.5, 24, 17.2, 19.4, 26.3, 25.3, 24, 24.2"
+%Y: "20.6, 25.2, 20.8, 24.7, 24.5, 19.5, 22.6, 17.5"
+
+
     % Заключение
     \newpage
     \section[Заключение]{Заключение}
@@ -615,6 +666,9 @@ sidebarLayout(
 
         \bibitem{Bootstrap-wiki}Bootstrap
         \newblock --- https://ru.wikipedia.org/wiki/Bootstrap
+
+        \bibitem{Altman}Practical Statistics for Medical Research, Chapman Hall, London
+        \newblock --- Altman D. G. (1981)
 
     \end{thebibliography}
 

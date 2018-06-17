@@ -10,9 +10,9 @@ function(input, output, session) {
     output$wilcoxTestResult <- renderPrint({
         wilcox.test(
             x = stringToArray(input$wilcoxTestX),
-            y = stringToArray(input$wilcoxTestY),
+            #y = stringToArray(input$wilcoxTestY),
             alternative = input$wilcoxTestAlternative,
-            #mu = input$wilcoxTestMu,
+            mu = input$wilcoxTestMu,
             paired = input$wilcoxTestPaired,
             exact = NULL,
             correct = input$wilcoxTestCorrect,
